@@ -1,0 +1,19 @@
+https://www.anaconda.com/products/individual#windows
+https://docs.conda.io/en/latest/miniconda.html
+google: C:\Windows\System32\cmd.exe
+google: anaconda install stuck at preparring transaction
+https://bugzilla.redhat.com/show_bug.cgi?id=1468896
+https://www.reddit.com/r/Python/comments/d9eynb/anaconda_install_freezes_or_does_not_complete/
+google: initial python cmd hanging
+https://stackoverflow.com/questions/50909361/python-hangs-after-some-time-continues-when-pressed-enter
+google: python command not working
+https://stackoverflow.com/questions/13596505/python-not-working-in-command-prompt
+google: how to add to path system variables
+https://docs.telerik.com/teststudio/features/test-runners/add-path-environment-variables
+google: how to add to PYTHONPATH system variable
+https://stackoverflow.com/questions/3701646/how-to-add-to-the-pythonpath-in-windows-so-it-finds-my-modules-packages
+google: ## enable python cmd
+- Add C:\Python27\ (or wherever you installed python) to the end of the PATH system variable
+- Add C:\Python27\ (or wherever you installed python) to the end of the PYTHONPATH system variable
+google: python not working in gitbash
+https://stackoverflow.com/questions/32597209/python-not-working-in-the-command-line-of-git-bash
