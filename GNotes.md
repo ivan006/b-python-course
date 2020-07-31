@@ -56,11 +56,11 @@
   - - Add C:\Python27\ (or wherever you installed python) to the end of the PYTHONPATH system variable
   - google: python not working in gitbash
   - https://stackoverflow.com/questions/32597209/python-not-working-in-the-command-line-of-git-bash
-  - 
+  -
   - https://stackoverflow.com/questions/7374748/whats-the-difference-between-a-python-property-and-attribute
   - google: object level attribute p ython
   - https://dzone.com/articles/python-class-attributes-vs-instance-attributes
-  - 
+  -
   - https://askubuntu.com/questions/908827/variable-path-issue-conda-command-not-found
   - google: .bashrc file where is it win7
   - https://stackoverflow.com/questions/44955805/why-does-anaconda-navigator-keeps-crashing-on-start-up-mac
@@ -85,22 +85,22 @@
 - layout handler - templates
 
 ## Run server
-- Orient to 
+- Orient to
   - C:/Users/ivan\Documents/multimedia/b-python-course/first_project
 - Run
   - activate myEnv
   - python manage.py runserver
 - Orient to
-  - http://127.0.0.1:8000/ 
+  - http://127.0.0.1:8000/
 
 ## Create an app
 - python manage.py startapp first_app
 
 
 ## Register app
-- Orient to 
+- Orient to
   - first_project > settings.py
-  - INSTALLED_APPS = 
+  - INSTALLED_APPS =
 - Add “‘first_app’”
 
 ## Views
@@ -114,17 +114,17 @@
 	```
 
 ## Urls using views
-- Orient to 
+- Orient to
   - first_project > urls.py
 - Add “from first_app import views”
-- Orient to 
-  - urlpatterns = 
+- Orient to
+  - urlpatterns =
 - Add “path('',views.index, name="index"),”
 
 ## Urls with app scope
-- Orient to 
+- Orient to
   - first_app
-- Manually create a “urls.py” file 
+- Manually create a “urls.py” file
 - Add “from django.conf.urls import url”
   ```
   from django.conf.urls import url
@@ -135,37 +135,37 @@
   ]
   ```
 
-- Orient to 
+- Orient to
   - first_project > urls.py
 - Add “from django.conf.urls import include”
-- Orient to 
-  - urlpatterns = 
+- Orient to
+  - urlpatterns =
 - Add “path('first_app/', include('first_app.urls')),”
 
 ## Templates
-- Orient to 
+- Orient to
   - First_project
 - Add “templates” folder
-- Orient to 
+- Orient to
   - First_project
   - First_project
   - Settings.py
   - The blank line below “BASE_DIR =”
 - Add “TEMPLATE_DIR = os.path.join(BASE_DIR,"templates")”
-- Orient to 
+- Orient to
   - TEMPLATES = [
   - 'DIRS': [],
 - Update “'DIRS': [TEMPLATE_DIR,],”
-- Orient to 
+- Orient to
   - First_project
   - templates
 - Add “first_app” folder
-- Orient to 
+- Orient to
   - first_app
 - Add “index.html” file
-- Orient to 
+- Orient to
   - Index.html
-- Add 
+- Add
   ```
   <!DOCTYPE html>
   <html lang="en" dir="ltr">
@@ -179,7 +179,7 @@
     </body>
   </html>
   ```
-- Orient to 
+- Orient to
   - First_project
   - First_app
   - views.py
@@ -193,18 +193,18 @@
 ## Static files
 
 ### Static dir setup
-- Orient to 
+- Orient to
   - First_project
 - Add “static” folder
-- Orient to 
+- Orient to
   - First_project
   - First_project
   - Settings.py
   - The blank line below “TEMPLATES = ”
 - Add “STATIC_DIR = os.path.join(BASE_DIR,"templates")”
-- Orient to 
+- Orient to
   - The blank line below STATIC_URL =
-- Add 
+- Add
   ```
   STATICFILES_DIRS = [
       STATIC_DIR,
@@ -213,14 +213,14 @@
 
 
 ### Images dir
-- Orient to 
+- Orient to
   - First_project
   - static
 - Add “images” folder
-- Orient to 
+- Orient to
   - images
 - Add “image.png” file
-- Orient to 
+- Orient to
   - First_project
   - templates
   - First_app
@@ -238,7 +238,7 @@
 - Add “.Bo_1 {border: 1px solid black;}”
 - Instead of the image tag orient yourself to the line below the template title tag
 - Add “<link rel="stylesheet" href="{% static "css/style.css" %}">”
-- Orient to the img tag 
+- Orient to the img tag
 - Add this as an attribute “class="Bo_1"”
 - Rough notes
   - https://stackoverflow.com/questions/44026548/getting-typeerror-init-missing-1-required-positional-argument-on-delete
@@ -246,8 +246,8 @@
 
 ## Model Migration
 - Orient to
-  - first_project 
-  - first_app 
+  - first_project
+  - first_app
   - models.py
   - The line below “# Create your models here.”
 - Add
@@ -279,11 +279,11 @@
       def __str__(self):
           return str(self.date)
   ```
-- Orient to 
+- Orient to
   - Terminal
   - Working dir
   - first_project
-- Run 
+- Run
   - “python manage.py migrate”
   - “python manage.py makemigrations first_app”
   - “python manage.py migrate”
@@ -295,11 +295,11 @@
 - t = Topic(top_name="Social Network")
 - t.save()
 - print(Topic.objects.all())
-- quite() 
+- quite()
 
 ## Register Admin interface
 - Orient to
-  - first_project 
+  - first_project
   - first_app
   - admin.py
   - The line above “# Register your models here.”
@@ -314,17 +314,17 @@
   ```
 
 ## Create superuser
-- Orient to 
+- Orient to
   - Terminal
-- Run 
+- Run
   - python manage.py createsuperuser
   - Ivan
   - ivan.copeland2015@gmail.com
   - Readyforanything123
-- Run 
+- Run
   - python manage.py runserver
 - Orient to
-  - http://127.0.0.1:8000/admin 
+  - http://127.0.0.1:8000/admin
 - Login
 
 ## Add db record via admin tool
@@ -388,9 +388,9 @@
       populate(20)
       print("population complete!")
   ```
-- Orient to 
+- Orient to
   - Terminal
-- Run 
+- Run
   - python populate_first_app.py
 - Run server
 
@@ -419,9 +419,9 @@
       return render(request, "first_app/index.html", context=date_dict)
   ```
 - Orient to
-  - first_project 
-  - templates 
-  - first_app 
+  - first_project
+  - templates
+  - first_app
   - Index.html
   - New line below “<img src=...”
 - Add
@@ -457,11 +457,11 @@
 
 ## Forms
 - Orient to
-  - first_project 
+  - first_project
   - first_app
 - Add
   - forms.py
-- Orient to 
+- Orient to
   - Forms.py
 - Add
   ```
@@ -473,17 +473,64 @@
       text = forms.CharField(widget=forms.Textarea)
   ```
 - Orient to
-  - first_project 
-  - first_app 
+  - first_project
+  - first_app
   - views.py
   - Below the  “from first_app.models import Topic, Webpage, AccessRecord” line
 - Add
-  - from . import forms 
+  - from . import forms
 - Orient to
   - The end of the file
 - Add
+	```
+	def form_name_view(request):
+	    form = forms.FormName()
+	    return render(request, 'first_app/index.html', {'form' : form})
+	```
+- Orient to
+  - first_project
+  - first_project
+  - urls.py
+  - The line below 'urlpatterns ='
+- Add
+  - path('form', views.form_name_view, name='form'),
+- Orient to
+  - first_project
+  - templates
+  - first_app
+  - index.html
+  - New line above "</body>"
+- Add
+  ```
+  <div class="container">
+    <form method="post">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="submit" name="" class="btn btn-primary" value="Submit">
+    </form>
+  </div>
+  ```
+- Orient to
+  - New line below "<link rel="stylesheet" href="{% static "css/style.css" %}">"
+- Add
+  ```
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  ```
+- Run the server
+- Orient to
+  - first_project
+  - first_app
+  - views.py
+  - New line below "form = forms.FormName()"
+- Add
+  ```
+  if request.method == 'POST':
+      form = forms.FormName(request.POST)
 
-
-
-
-
+      if form.is_valid():
+          # Do something code
+          print("Validation success!")
+          print("Name: "+form.cleaned_data['name'])
+          print("Email: "+form.cleaned_data['email'])
+          print("Text: "+form.cleaned_data['text'])
+  ```

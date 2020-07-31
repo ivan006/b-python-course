@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>First app</title>
     <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   </head>
   <body>
     <h1>Hello this is index.html!</h1>
@@ -33,6 +34,13 @@
       {% else %}
         <p>No access records found.</p>
       {% endif %}
+    </div>
+    <div class="container">
+      <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit" name="" class="btn btn-primary" value="Submit">
+      </form>
     </div>
   </body>
 </html>

@@ -25,6 +25,7 @@ from first_app import views
 from django.conf.urls import include
 
 urlpatterns = [
+    path('form', views.form_name_view, name='form'),
     path('',views.index, name="index"),
     path('admin/', admin.site.urls),
     path('first_app/', include('first_app.urls')),
