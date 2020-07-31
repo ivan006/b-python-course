@@ -534,3 +534,78 @@
           print("Email: "+form.cleaned_data['email'])
           print("Text: "+form.cleaned_data['text'])
   ```
+- Run the server
+
+## Form validation
+
+- Orient to
+  - first_project
+  - first_app
+  - forms.py
+  - New line after "text = forms.CharField(widget=forms.Textarea)"
+- Add
+  ```
+  botcatcher = forms.CharField(
+      required=False,
+      widget=forms.HiddenInput
+  )
+  ```
+- Orient to
+  - New line after the "botcatcher = forms.CharField" assignment
+- Add
+  ```
+  def clean_botcatcher(self):
+      botcatcher = self.cleaned_data['botcatcher']
+      if len(botcatcher) > 0:
+          raise forms.ValidationError("GOTCHA BOT!")
+      return botcatcher
+  ```
+
+## Django's form validation
+
+- Orient to
+  - The "botcatcher = forms.CharField" assignment
+- Update it
+  - Delete everything underneath this assignment
+- Orient to
+  - New line under "from django import forms" line
+- Add
+  - from django.core import validators
+- Orient to
+  - New line under "widget=forms.HiddenInput" line
+- Add
+  - validators=[validators.MaxLengthValidator(0)],
+
+## Custom form validator
+
+- Orient to
+  - New line under "from django.core import validators"
+- Add
+  ```
+  def check_for_z(value):
+      if value[0].lower() != 'z':
+          raise forms.ValidationError("Name needs to start with z.")
+
+  ```
+- Orient to
+  - The "name = forms.CharField()" line
+- Update it
+  -  "name = forms.CharField(validators=[check_for_z])"
+
+## Form validation for all fields
+
+- Orient to
+  - New line under "email = forms.EmailField()"
+- Add
+  - verify_email = forms.EmailField(label='Enter your email again')
+- Orient to
+  - New line under the "botcatcher = forms.CharField(" assignment
+- Add
+  ```
+  def clean(self):
+      all_clean_data = super().clean()
+      email = all_clean_data['email']
+      vemail = all_clean_data['verify_email']
+      if email != vemail:
+          raise forms.ValidationError("Make sure emails match!")
+  ```
