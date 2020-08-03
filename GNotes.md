@@ -674,16 +674,38 @@
 
 - Orient to
   - first_project
-  - templates
   - first_app
-  - index.html
-  - New line after this block
+  - forms.py
+  - New line below "from django.core import validators" line
+- Add
+  - "from first_app.models import Webpage"
+- Orient to
+  - The end of the file
+- Add
   ```
-  <div class="container">
-    <form method="post">
-      {{ form.as_p }}
-      {% csrf_token %}
-      <input type="submit" name="" class="btn btn-primary" value="Submit">
-    </form>
-  </div>
+  class NewWebpageForm(forms.ModelForm):
+      # Validations can go here
+      class Meta:
+          model = Webpage
+          fields = '__all__'
+  ```
+- Orient to
+  - first_project
+  - first_app
+  - views.py
+  - The "def form_name_view(request):" line
+- Update
+  - Replace everything from under this line with
+  ```
+  form = forms.NewWebpageForm()
+  if request.method == 'POST':
+      form = forms.NewWebpageForm(request.POST)
+
+      if form.is_valid():
+          # Do something code
+          form.save(commit=True)
+          return index(request)
+      else:
+          print('Error form invalid')
+  return render(request, 'first_app/index.html', {'form' : form})
   ```

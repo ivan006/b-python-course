@@ -10,14 +10,14 @@ def index(request):
     return render(request, "first_app/index.html", context=date_dict)
 
 def form_name_view(request):
-    form = forms.FormName()
+    form = forms.NewWebpageForm()
     if request.method == 'POST':
-        form = forms.FormName(request.POST)
+        form = forms.NewWebpageForm(request.POST)
 
         if form.is_valid():
             # Do something code
-            print("Validation success!")
-            print("Name: "+form.cleaned_data['name'])
-            print("Email: "+form.cleaned_data['email'])
-            print("Text: "+form.cleaned_data['text'])
+            form.save(commit=True)
+            return index(request)
+        else:
+            print('Error form invalid')
     return render(request, 'first_app/index.html', {'form' : form})

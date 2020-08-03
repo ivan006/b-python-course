@@ -1,5 +1,6 @@
 from django import forms
 from django.core import validators
+from first_app.models import Webpage
 
 def check_for_z(value):
     if value[0].lower() != 'z':
@@ -21,3 +22,9 @@ class FormName(forms.Form):
         vemail = all_clean_data['verify_email']
         if email != vemail:
             raise forms.ValidationError("Make sure emails match!")
+
+class NewWebpageForm(forms.ModelForm):
+    # Validations can go here
+    class Meta:
+        model = Webpage
+        fields = '__all__'
