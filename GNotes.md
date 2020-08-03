@@ -1,3 +1,40 @@
+# Table of contents
+- [Setup](#setup)
+  * [Conda](#conda)
+  * [Enable python in gitbash (didnt use - )](#enable-python-in-gitbash--didnt-use----)
+  * [Atom packages](#atom-packages)
+  * [Create conda env](#create-conda-env)
+  * [Create a project](#create-a-project)
+- [Usage](#usage)
+  * [Components overview](#components-overview)
+  * [Run server](#run-server)
+  * [Create an app](#create-an-app)
+  * [Register app](#register-app)
+  * [Views](#views)
+  * [Urls using views](#urls-using-views)
+  * [Urls with app scope](#urls-with-app-scope)
+  * [Templates](#templates)
+  * [Static files](#static-files)
+    + [Static dir setup](#static-dir-setup)
+    + [Images dir](#images-dir)
+    + [CSS dir](#css-dir)
+  * [Model Migration](#model-migration)
+  * [Model add db record](#model-add-db-record)
+  * [Register Admin interface](#register-admin-interface)
+  * [Create superuser](#create-superuser)
+  * [Add db record via admin tool](#add-db-record-via-admin-tool)
+  * [Add db record via faker](#add-db-record-via-faker)
+  * [Architecture](#architecture)
+  * [Database](#database)
+  * [Forms](#forms)
+  * [Form validation](#form-validation)
+  * [Django's form validation](#django-s-form-validation)
+  * [Custom form validator](#custom-form-validator)
+  * [Form validation for all fields](#form-validation-for-all-fields)
+  * [Store form data](#store-form-data)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 
 # Setup
 
@@ -609,3 +646,10 @@
       if email != vemail:
           raise forms.ValidationError("Make sure emails match!")
   ```
+
+## Store form data
+
+- Orient to
+  - first_project
+  - first_app
+  - forms.py
