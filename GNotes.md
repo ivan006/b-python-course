@@ -1,4 +1,4 @@
-# Table of contents
+- [Table of contents](#table-of-contents)
 - [Setup](#setup)
   * [Conda](#conda)
   * [Enable python in gitbash (didnt use - )](#enable-python-in-gitbash--didnt-use----)
@@ -6,32 +6,40 @@
   * [Create conda env](#create-conda-env)
   * [Create a project](#create-a-project)
 - [Usage](#usage)
-  * [Components overview](#components-overview)
-  * [Run server](#run-server)
-  * [Create an app](#create-an-app)
-  * [Register app](#register-app)
-  * [Views](#views)
-  * [Urls using views](#urls-using-views)
-  * [Urls with app scope](#urls-with-app-scope)
-  * [Templates](#templates)
-  * [Static files](#static-files)
-    + [Static dir setup](#static-dir-setup)
-    + [Images dir](#images-dir)
-    + [CSS dir](#css-dir)
-  * [Model Migration](#model-migration)
-  * [Model add db record](#model-add-db-record)
-  * [Register Admin interface](#register-admin-interface)
-  * [Create superuser](#create-superuser)
-  * [Add db record via admin tool](#add-db-record-via-admin-tool)
-  * [Add db record via faker](#add-db-record-via-faker)
-  * [Architecture](#architecture)
-  * [Database](#database)
-  * [Forms](#forms)
-  * [Form validation](#form-validation)
-  * [Django's form validation](#django-s-form-validation)
-  * [Custom form validator](#custom-form-validator)
-  * [Form validation for all fields](#form-validation-for-all-fields)
-  * [Store form data](#store-form-data)
+  * [Intro](#intro)
+    + [Components overview](#components-overview)
+    + [Run server](#run-server)
+  * [Modules](#modules)
+    + [Create an app](#create-an-app)
+    + [Register app](#register-app)
+  * [Tools base function](#tools-base-function)
+    + [Views](#views)
+  * [Url](#url)
+    + [Urls using views](#urls-using-views)
+    + [Urls with app scope](#urls-with-app-scope)
+  * [Layout](#layout)
+    + [Templates](#templates)
+  * [Storage](#storage)
+    + [Static files](#static-files)
+      - [Static dir setup](#static-dir-setup)
+      - [Images dir](#images-dir)
+      - [CSS dir](#css-dir)
+  * [Data handler](#data-handler)
+    + [Model Migration](#model-migration)
+    + [Model add db record](#model-add-db-record)
+    + [Register Admin interface](#register-admin-interface)
+    + [Create superuser](#create-superuser)
+    + [Add db record via admin tool](#add-db-record-via-admin-tool)
+    + [Add db record via faker](#add-db-record-via-faker)
+    + [Architecture](#architecture)
+    + [Database](#database)
+  * [Request handler](#request-handler)
+    + [Forms](#forms)
+    + [Form validation](#form-validation)
+    + [Django's form validation](#django-s-form-validation)
+    + [Custom form validator](#custom-form-validator)
+    + [Form validation for all fields](#form-validation-for-all-fields)
+    + [Store form data](#store-form-data)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
@@ -115,13 +123,15 @@
 
 # Usage
 
-## Components overview
+## Intro
+
+### Components overview
 - url handler - urls.py
 - base function - views.py
 - data handler - models
 - layout handler - templates
 
-## Run server
+### Run server
 - Orient to
   - C:/Users/ivan\Documents/multimedia/b-python-course/first_project
 - Run
@@ -130,17 +140,21 @@
 - Orient to
   - http://127.0.0.1:8000/
 
-## Create an app
+## Modules
+
+### Create an app
 - python manage.py startapp first_app
 
 
-## Register app
+### Register app
 - Orient to
   - first_project > settings.py
   - INSTALLED_APPS =
 - Add “‘first_app’”
 
-## Views
+## Tools base function
+
+### Views
 
 - Add
 	```
@@ -149,8 +163,9 @@
 	def index(request):
 		return HttpResponse("Hello World")
 	```
+## Url
 
-## Urls using views
+### Urls using views
 - Orient to
   - first_project > urls.py
 - Add “from first_app import views”
@@ -158,7 +173,7 @@
   - urlpatterns =
 - Add “path('',views.index, name="index"),”
 
-## Urls with app scope
+### Urls with app scope
 - Orient to
   - first_app
 - Manually create a “urls.py” file
@@ -179,7 +194,9 @@
   - urlpatterns =
 - Add “path('first_app/', include('first_app.urls')),”
 
-## Templates
+## Layout
+
+### Templates
 - Orient to
   - First_project
 - Add “templates” folder
@@ -227,9 +244,11 @@
   return render(request, "first_app/index.html", context=my_dict)
   ```
 
-## Static files
+## Storage
 
-### Static dir setup
+### Static files
+
+#### Static dir setup
 - Orient to
   - First_project
 - Add “static” folder
@@ -249,7 +268,7 @@
   ```
 
 
-### Images dir
+#### Images dir
 - Orient to
   - First_project
   - static
@@ -268,7 +287,7 @@
   - The line below “{{ insert_me }}”
 - Add “<img src="{% static "images/image.png" %}" alt="">”
 
-### CSS dir
+#### CSS dir
 - This time make one called “css” follow instructions above
 - Call your example file “style.css”
 - Orient to this file
@@ -281,7 +300,9 @@
   - https://stackoverflow.com/questions/44026548/getting-typeerror-init-missing-1-required-positional-argument-on-delete
   - https://stackoverflow.com/questions/11164420/django-help-attributeerror-module-object-has-no-attribute-charfield/43137403
 
-## Model Migration
+## Data handler
+
+### Model Migration
 - Orient to
   - first_project
   - first_app
@@ -325,7 +346,7 @@
   - “python manage.py makemigrations first_app”
   - “python manage.py migrate”
 
-## Model add db record
+### Model add db record
 - python manage.py shell
 - from first_app.models import Topic
 - print(Topic.objects.all())
@@ -334,7 +355,7 @@
 - print(Topic.objects.all())
 - quite()
 
-## Register Admin interface
+### Register Admin interface
 - Orient to
   - first_project
   - first_app
@@ -350,7 +371,7 @@
   admin.site.register(Webpage)
   ```
 
-## Create superuser
+### Create superuser
 - Orient to
   - Terminal
 - Run
@@ -364,7 +385,7 @@
   - http://127.0.0.1:8000/admin
 - Login
 
-## Add db record via admin tool
+### Add db record via admin tool
 - Orient to
   - Webpages
   - Add webpage
@@ -374,7 +395,7 @@
   - URL: www.google.com
   - Click save
 
-## Add db record via faker
+### Add db record via faker
 - Orient to
   - Terminal
 - Run
@@ -391,7 +412,7 @@
   import django
   django.setup()
 
-  ## FAKE POP SCRIPT
+  ### FAKE POP SCRIPT
   import random
   from first_app.models import AccessRecord, Webpage, Topic
   from faker import Faker
@@ -431,14 +452,14 @@
   - python populate_first_app.py
 - Run server
 
-## Architecture
+### Architecture
 - MTV
 - M - data hadler
 - T - Template handler
 - V - Page main function
 - Urls - Url handler
 
-## Database
+### Database
 - Orient to
   - first_project
   - first_app
@@ -492,7 +513,9 @@
 - Rough notes
   - https://stackoverflow.com/questions/3597143/php-style-inline-tags-for-python
 
-## Forms
+## Request handler
+
+### Forms
 - Orient to
   - first_project
   - first_app
@@ -573,7 +596,7 @@
   ```
 - Run the server
 
-## Form validation
+### Form validation
 
 - Orient to
   - first_project
@@ -598,7 +621,7 @@
       return botcatcher
   ```
 
-## Django's form validation
+### Django's form validation
 
 - Orient to
   - The "botcatcher = forms.CharField" assignment
@@ -613,7 +636,7 @@
 - Add
   - validators=[validators.MaxLengthValidator(0)],
 
-## Custom form validator
+### Custom form validator
 
 - Orient to
   - New line under "from django.core import validators"
@@ -629,7 +652,7 @@
 - Update it
   -  "name = forms.CharField(validators=[check_for_z])"
 
-## Form validation for all fields
+### Form validation for all fields
 
 - Orient to
   - New line under "email = forms.EmailField()"
@@ -647,7 +670,7 @@
           raise forms.ValidationError("Make sure emails match!")
   ```
 
-## Store form data
+### Store form data
 
 - Orient to
   - first_project
