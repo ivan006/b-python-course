@@ -674,5 +674,16 @@
 
 - Orient to
   - first_project
+  - templates
   - first_app
-  - forms.py
+  - index.html
+  - New line after this block
+  ```
+  <div class="container">
+    <form method="post">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="submit" name="" class="btn btn-primary" value="Submit">
+    </form>
+  </div>
+  ```
