@@ -973,4 +973,45 @@
   MEDIA_ROOT = MEDIA_DIR
   ```
 
+## Image field
+- Orient to
+  - Terminal
+  - Working dir (e.g. "C:\Users\ivan\Documents\multimedia\b-python-course" )
+  - first_project
+- Run
+  - pip install pillow
+  - Or if this has jpeg error use
+    ```
+    pip install pillow --global-option="build_ext" --global-option="disable-jpeg"
+    ```
+
 ## User authentication part 2
+
+- Orient to
+  - first_project
+  - first_app
+  - admin.py
+  - The end of the file
+- Add
+  - admin.site.register(UserProfileInfo)
+
+
+
+##################
+from django.contrib.auth.models import User
+
+# Create
+class UserProfileInfo(models.Model):
+
+    # Create relationship (don't inherit from User!)
+    user = models.OneToOneField(User)
+
+    # Add any additional attributes you want
+    portfolio = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_pics')
+
+    def __str__(self):
+        # Built-in attribute of django.contrib.auth.models.User !
+        return self.user.username
+
+##################
