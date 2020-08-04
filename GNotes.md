@@ -908,9 +908,9 @@
   - "INSTALLED_APPS ="
 - Update
   - Make sure these elements are defined
-  ```
-  'django.contrib.admin',
-  'django.contrib.auth',
-  'django.contrib.contenttypes',
-  ```
+    ```
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    ```
   - If any of these needed adding make-migrate and migrate your app (as shown in "Model Migration" > "Run")
