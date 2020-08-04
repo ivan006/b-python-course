@@ -709,3 +709,208 @@
           print('Error form invalid')
   return render(request, 'first_app/index.html', {'form' : form})
   ```
+
+## Urls part 2
+
+### Relative Urls
+- Orient to
+  - first_project
+  - first_app
+  - urls.py
+  - New line after "from first_app import views" line
+- Add
+  - 'app_name = "first_app"'
+- Orient to
+  - first_project
+  - templates
+  - first_app
+  - index.html
+  - New line before the "</body>" line
+- Add
+  ```
+  <!-- Be careful not the trail any spaces in the url name -->
+  <a href="{% url 'first_app:index' %}">Index</a>
+  <a href="{% url 'admin:index' %}">Admin</a>
+  <a href="{% url 'form' %}">Form</a>
+  ```
+## Layout part 2
+
+### Template inheritence
+
+- Orient to
+  - first_project
+  - templates
+  - first_app
+- Add
+  - A file called "base.html"
+- Orient to
+  - base.html
+- Add
+  ```
+  <!DOCTYPE html>
+  {% load static %}
+  <html lang="en" dir="ltr">
+    <head>
+      <meta charset="utf-8">
+      <title>First app</title>
+      <link rel="stylesheet" href="{% static "css/style.css" %}">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    </head>
+    <body>
+      <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="#" class="navbar-brand">
+                Brand
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'admin:index' %}" class="navbar-link">
+                Admin
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'first_app:index' %}" class="navbar-link">
+                Index
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'form' %}" class="navbar-link">
+                Form
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container">
+        {% block body_block %}
+        <!-- Anything outside of this will be inherited if you extend -->
+        {% endblock %}
+      </div>
+
+    </body>
+  </html>
+  ```
+- Orient to
+  - first_project
+  - templates
+  - first_app
+  - index.html
+  - The "<body>" line
+- Update it
+  - Remove this line and everything before it
+  - Re-add
+    ```
+    <!DOCTYPE html>
+    {% load static %}
+    ```
+- Orient to
+  - The "</body>" line
+- Update it
+  - Remove this line and everything after this line
+- Orient to
+  - The "{% load static %}" line
+- Update it
+  - Un-indent everthing after this line by 2 tab levels
+- Orient to
+  - New line after the "<!DOCTYPE html>" line
+- Add
+  ```
+  {% extends "first_app/base.html" %}
+  {% block body_block %}
+  ```
+- Orient to
+  - The end of the file
+- Add
+  ```
+  {% endblock %}
+  ```
+
+### Template filters
+
+#### Built in filters
+
+- Further reading
+  - https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#filter
+- Orient to
+  - first_project
+  - templates
+  - first_app
+  - index.html
+  - The "{{ acc.name }}" line
+- Update to
+  - "{{ acc.name|upper }}"
+- Orient to
+  - New line after the "<tr>" line
+- Add
+  ```
+  <td>
+    {{ acc.id|add:"1000" }}
+  </td>
+  ```
+
+#### Custom filters
+
+- Orient to
+  - first_project
+  - first_app
+- Add
+  - A "templatetags" folder
+- Orient to
+  - templatetags
+- Add
+  - A "__init__.py" file
+  - A "my_extras.py" file
+- Orient to
+  - "my_extras.py"
+- Add
+  ```
+  from django import template
+
+  register = template.Library()
+
+  def cut(value, arg):
+      """
+      This cuts out all values of "arg" from the string
+      """
+      return value.replace(arg, '')
+
+  register.filter('cut', cut)
+  ```
+- Orient to
+  - first_project
+  - templates
+  - first_app
+  - index.html
+  - The "{{ acc.date }}" line
+- Update it
+  - To "{{ acc.date|cut:"19" }}"
+
+#### Custom filter using a decorator
+
+- Orient to
+  - first_project
+  - first_app
+  - templatetags
+  - my_extras.py
+  - The "register.filter('cut', cut)" line
+- Update
+  - Replace it with "@register.filter(name='cut')"
+
+## User authentication
+
+- Orient to
+  - first_project
+  - first_project
+  - settings.py
+  - "INSTALLED_APPS ="
+- Update
+  - Make sure these elements are defined
+  ```
+  'django.contrib.admin',
+  'django.contrib.auth',
+  'django.contrib.contenttypes',
+  ```
+  - If any of these needed adding make-migrate and migrate your app (as shown in "Model Migration" > "Run")

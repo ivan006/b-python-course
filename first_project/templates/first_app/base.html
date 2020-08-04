@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>First app</title>
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="#" class="navbar-brand">
+              Brand
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'admin:index' %}" class="navbar-link">
+              Admin
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'first_app:index' %}" class="navbar-link">
+              Index
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'form' %}" class="navbar-link">
+              Form
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      {% block body_block %}
+      <!-- Anything outside of this will be inherited if you extend -->
+      {% endblock %}
+    </div>
+
+  </body>
+</html>
