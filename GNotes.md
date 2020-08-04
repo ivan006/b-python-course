@@ -897,9 +897,15 @@
   - my_extras.py
   - The "register.filter('cut', cut)" line
 - Update
-  - Replace it with "@register.filter(name='cut')"
+  - Delete this line
+- Orient to
+  - New line before the "def cut(value, arg):" line
+- Add
+  - @register.filter(name='cut')
 
 ## User authentication
+
+### Register libraries
 
 - Orient to
   - first_project
@@ -914,3 +920,57 @@
     'django.contrib.contenttypes',
     ```
   - If any of these needed adding make-migrate and migrate your app (as shown in "Model Migration" > "Run")
+
+### Install encrypter
+
+- Orient to
+  - Terminal
+  - Working dir (e.g. "C:\Users\ivan\Documents\multimedia\b-python-course" )
+  - first_project
+- Run
+  - activate myEnv
+  - pip install bcrypt
+  - pip install django[argon2]
+- Orient to
+  - first_project
+  - first_project
+  - settings.py
+  - New line before the "AUTH_PASSWORD_VALIDATORS =" line
+
+### Password validation
+
+- Add
+  ```
+  PASSWORD_HASHERS = [
+      'django.contrib.auth.hashers.Argon2PasswordHasher',
+      'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+      'django.contrib.auth.hashers.BCryptPasswordHasher',
+      'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+      'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+  ]
+  ```
+- Orient to
+  - New line below the "'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'," line
+- Add
+  - 'OPTIONS': {'min_length': 9},
+
+## Media dir
+
+- This is for user generater media (static dir is for developer generated media)
+- Orient to
+  - first_project
+  - first_project
+  - settings.py
+  - New line below the "STATIC_DIR = os.path.join(BASE_DIR,"static")" line
+- Add
+  - MEDIA_DIR = os.path.join(BASE_DIR, "media")
+- Orient to
+  - The line below the "STATICFILES_DIRS =" assignment block
+- Add
+  ```
+  # MEDIA
+  MEDIA_URL = '/media/'
+  MEDIA_ROOT = MEDIA_DIR
+  ```
+
+## User authentication part 2
