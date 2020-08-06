@@ -1,3 +1,6 @@
+
+## Full entity setup
+
 - [Table of contents](#table-of-contents)
 - [Setup](#setup)
   * [Conda](#conda)
@@ -127,7 +130,7 @@
 
 ### Components overview
 - url handler - urls.py
-- base function - views.py
+- Core function - views.py
 - data handler - models
 - layout handler - templates
 
@@ -152,7 +155,7 @@
   - INSTALLED_APPS =
 - Add “‘first_app’”
 
-## Tools base function
+## Tools core function
 
 ### Views
 
@@ -987,31 +990,140 @@
 
 ## User authentication part 2
 
+### The data aspect
+
 - Orient to
   - first_project
   - first_app
-  - admin.py
+  - models.py
+  - New line below "from django.db import models"
+- Add
+  - from django.contrib.auth.models import User
+- Orient to
   - The end of the file
 - Add
-  - admin.site.register(UserProfileInfo)
-
-
-
-##################
-from django.contrib.auth.models import User
-
-# Create
-class UserProfileInfo(models.Model):
+  ```
+  # Create
+  class UserProfileInfo(models.Model):
 
     # Create relationship (don't inherit from User!)
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(
+       User,
+       on_delete=models.CASCADE,
+     )
 
     # Add any additional attributes you want
-    portfolio = models.URLField(blank=True)
-    picture = models.ImageField(upload_to='profile_pics')
+    portfolio_site = models.URLField(blank=True)
+    profile_pic = models.ImageField(upload_to='profile_pics', blank=True)
 
     def __str__(self):
         # Built-in attribute of django.contrib.auth.models.User !
         return self.user.username
+  ```
+- Orient to
+  - first_project
+  - first_app
+  - forms.py
+  - New line after "from first_app.models import Webpage"
+- Add
+  ```
+  from django.contrib.auth.models import User
+  from first_app.models import UserProfileInfo
+  ```
+- Orient to
+  - The end of the file
+- Add
+  ```
+  class UserForm(forms.ModelForm):
+      password = forms.CharField(widget=forms.PasswordInput())
 
-##################
+      class Meta():
+          model = User
+          fields = ('username', 'email', 'password')
+
+  class UserProfileInfo(forms.ModelForm):
+      class Meta():
+          model = UserProfileInfo
+          fields = ('portfolio_site', 'profile_pic')
+
+  ```
+- Orient to
+  - first_project
+  - first_app
+  - admin.py
+  - The end of the "from first_app.models import AccessRecord, Topic, Webpage" line
+- Add
+  - ", UserProfileInfo"
+- Orient to
+  - The end of the file
+- Add
+  - admin.site.register(UserProfileInfo)
+- Orient to
+  - Terminal (working dir and working env)
+- Run
+  - “python manage.py migrate”
+  - “python manage.py makemigrations first_app”
+  - “python manage.py migrate”
+
+### The layout aspect
+
+- Orient to
+  - first_project
+  - templates
+  - first_app
+- Add
+  - A file called "registration.html"
+  - A file called "login.html"
+- Orient to
+  - first_project
+  - templates
+  - first_app
+  - base.html
+  - New line before the "</ul>" line
+- Add
+  ```
+  <li>
+    <a href="{% url 'first_app:register' %}" class="navbar-link">
+      Register
+    </a>
+  </li>
+  ```
+- Orient to
+  - first_project
+  - templates
+  - first_app
+  - registration.html
+- Add
+  ```
+  <!DOCTYPE html>
+  {% extends "first_app/base.html" %}
+  {% block body_block %}
+  {% load static %}
+  <div class="container">
+    {% if registered %}
+    <h1>Thank you for registering!</h1>
+    {% else %}
+    <h1>Register here </h1>
+    <h3>Fill out the form</h3>
+    <form enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+      {{ user_form.as_p }}
+      {{ profile_form.as_p }}
+      <input type="submit" name="" value="Register">
+    </form>
+    {% endif %}
+  </div>
+  {% endblock %}
+  ```
+
+### Url aspect
+
+- Orient to
+  - first_project
+  - first_app
+  - urls.py
+  - New line after "path('', views.index, name="index"),"
+- Add
+  - path('register/', views.register, name='register'),
+
+### Core function aspect
