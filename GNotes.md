@@ -1041,7 +1041,7 @@
           model = User
           fields = ('username', 'email', 'password')
 
-  class UserProfileInfo(forms.ModelForm):
+  class UserProfileInfoForm(forms.ModelForm):
       class Meta():
           model = UserProfileInfo
           fields = ('portfolio_site', 'profile_pic')
@@ -1127,3 +1127,176 @@
   - path('register/', views.register, name='register'),
 
 ### Core function aspect
+
+- Orient to
+  - first_project
+  - first_app
+  - views.py
+  - The end of the file
+- Add
+  ```
+  def register(request):
+      registered = False
+
+      if request.method == "POST":
+          user_form = forms.UserForm(data=request.post)
+          profile_form = forms.UserProfileInfoForm(data=request.POST)
+
+          if user_form.is_valid() and profile_form.is_valid():
+
+              user = user_form.save()
+              user.set_password(user.password)
+              user.save()
+
+              profile = profile_form.save(commit=False)
+              profile.user = user
+
+              if 'profile_pic' in request.FILES:
+                  profile.profile_pic = request.FILES['profile_pic']
+
+              profile.save()
+
+              registered = True
+
+          else:
+              print(user_form.errors, profile_form.errors)
+
+      else:
+          user_form = forms.UserForm()
+          profile_form = forms.UserProfileInfoForm()
+
+      return render(request, 'first_app/registration.html', {
+          'user_form': user_form,
+          'profile_form': profile_form,
+          'registered': registered,
+
+      })
+  ```
+- Orient to
+  - Admin tools
+- Read
+  - Find the new user you made
+
+### Login tool (create cookie)
+
+#### Url
+
+- Orient to
+  - first_project
+  - first_project
+  - settings.py
+  - End of the file
+- Add
+  - LOGIN_URL = '/first_app/user_login'
+- Orient to
+  - first_project
+  - templates
+  - first_app
+  - login.html
+- Add
+  ```
+  {% extends 'first_app/base.html' %}
+  {% block body_block %}
+  <div class="container">
+    <h1>Please login</h1>
+    <form action="{% url 'first_app:user_login' %}" method="post">
+      {% csrf_token %}
+      <label for="username">Username:</label>
+      <input type="text" name="username" placeholder="Enter username">
+
+      <label for="password">Passworrd:</label>
+      <input type="password" name="password">
+
+      <input type="submit" name="" value="Login">
+    </form>
+  </div>
+  {% endblock %}
+  ```
+- Orient to
+  - first_project
+  - first_app
+  - views.py
+  - New line below "from . import forms" line
+- Add
+  ```
+  from django.contrib.auth import authenticate, login, logout
+  from django.http import HttpResponseRedirect, HttpResponse
+  from django.urls import reverse
+  from django.contrib.auth.decorators import login_required
+  ```
+- Orient to
+  - The end of the file
+- Add
+  ```
+  def user_login(request):
+      if request.method == 'POST':
+          username = request.POST.get('username')
+          password = request.POST.get('password')
+
+          user = authenticate(username=username, password=password)
+
+          if user:
+              if user.is_active:
+                  login(request, user)
+                  return HttpResponseRedirect(reverse('index'))
+              else:
+                  return HttpResponse('Account not active')
+          else:
+              print('Someone tried to login and failed')
+              print("Username: {} and password {}".format(username, pasword))
+              return HttpResponse('invalid login details supplied')
+      else:
+          return render(request, 'first_app/login.html', {})
+
+  @login_required
+  def user_logout(request):
+      logout(request)
+      return HttpResponseRedirect(reverse('index'))
+
+  @login_required
+  def special(request):
+      return HttpResponse('You are logged in. Nice.')
+  ```
+- Orient to
+  - first_project
+  - first_project
+  - urls.py
+  - New line below "path('first_app/', include('first_app.urls')),"
+- Add
+  ```
+  path('logout/', views.user_logout, name='logout'),
+  path('special/', views.special, name='special'),
+  ```
+- Orient to
+  - first_project
+  - first_app
+  - urls.py
+  - New line below "path('register/', views.register, name='register'),"
+- Add
+  ```
+  path('user_login/', views.user_login, name='user_login'),
+  ```
+- Orient to
+  - first_project
+  - templates
+  - first_app
+  - base.html
+  - New line above "</ul>"
+- Add
+  ```
+  {% if user.is_authenticated %}
+  <li>
+    <a href="{% url 'logout' %}" class="navbar-link">
+      Logout
+    </a>
+  </li>
+  {% else %}
+  <li>
+    <a href="{% url 'first_app:user_login' %}" class="navbar-link">
+      Login
+    </a>
+  </li>
+  {% endif %}
+  ```
+- Rough notes
+  - https://stackoverflow.com/questions/43139081/importerror-no-module-named-django-core-urlresolvers
