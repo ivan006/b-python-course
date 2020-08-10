@@ -1300,3 +1300,38 @@
   ```
 - Rough notes
   - https://stackoverflow.com/questions/43139081/importerror-no-module-named-django-core-urlresolvers
+
+## Deployment
+
+- Create a github repo for your working files
+- Also orient to
+  - https://www.pythonanywhere.com
+- Action
+  - Create a beginner account and activate it
+- Orient to
+  - Terminal (your working dir and env)
+- Action
+  - Run "python --version"
+  - Take note of your python version in my case it's 3.8
+  - Run "python"
+  - Run "import django"
+  - Run "django.__version__"
+  - Take note of your django version in my case it's 3.0.3
+- Orient to
+  - https://www.pythonanywhere.com/batteries_included/
+- Take note of their supported python versions in my case it's 3.8
+- Orient to
+  - https://www.pythonanywhere.com
+  - Files
+  - Open Bash console here
+- Run
+  - mkvirtualenv --python=python3.8 myproj
+  - pip install -U django==3.0.3
+  - which django-admin.py (this should return a path like /home/ivan006/.virtualenvs/myproj/bin/django-admin.py)
+- Orient to
+  - Your github repo
+- Action
+  - Copy the repos url in my case https://github.com/ivan006/b-python-course
+- Orient to py-anywhere terminal
+- Run
+  - git clone https://github.com/ivan006/b-python-course
