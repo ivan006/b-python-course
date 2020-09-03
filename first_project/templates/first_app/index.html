@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% extends "first_app/base.html" %}
+{% block body_block %}
+{% load static %}
+<h1>Hello this is index.html!</h1>
+{{ insert_me }}
+<img src="{% static "images/image.png" %}" alt="" class="Bo_1">
+<div class="djangotwo">
+  {% if access_records %}
+    <table>
+      <thead>
+        <th>Site Name</th>
+        <th>Date Accessed</th>
+      </thead>
+      <tbody>
+        {% for acc in access_records %}
+          <tr>
+            <td>
+              {{ acc.id|add:"1000" }}
+            </td>
+            <td>
+              {{ acc.name|upper }}
+            </td>
+            <td>
+              {{ acc.date|cut:"19" }}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No access records found.</p>
+  {% endif %}
+</div>
+<div class="container">
+  <form method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input type="submit" name="" class="btn btn-primary" value="Submit">
+  </form>
+</div>
+<!-- Be careful not the trail any spaces in the url name -->
+<a href="{% url 'first_app:index' %}">Index</a>
+<a href="{% url 'admin:index' %}">Admin</a>
+<a href="{% url 'form' %}">Form</a>
+{% endblock %}
