@@ -7,7 +7,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.views.generic import View
 # Create your views here.
+class classview(View):
+    def get(self, request):
+        return HttpResponse("Hello world.")
 def index(request):
     webpages_list = AccessRecord.objects.order_by('date')
     date_dict = {'access_records' : webpages_list}

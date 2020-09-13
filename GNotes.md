@@ -15,8 +15,7 @@
   * [Modules](#modules)
     + [Create an app](#create-an-app)
     + [Register app](#register-app)
-  * [Tools base function](#tools-base-function)
-    + [Views](#views)
+  * [Tools core function (views)](#tools-core-function-(views))
   * [Url](#url)
     + [Urls using views](#urls-using-views)
     + [Urls with app scope](#urls-with-app-scope)
@@ -131,7 +130,21 @@
 	- python deploymnt method is not secure public keys?
 	- remove repo from pythn anywhere , commit gitignore , and reupload to python anywhere
 	- then write disallowed host instructions (pull etc)
-
+	- google: deploy python project to shared host hetzner
+	- https://medium.com/@dorukgezici/how-to-setup-python-flask-app-on-shared-hosting-without-root-access-e40f95ccc819
+	- gooel: deploy python app with cron
+	- violetminer-linux.tar.gz	https://docs.turtlecoin.lol/guides/mining/violetminer-guide
+	- moneroocean.zip			https://github.com/MoneroOcean
+	- beepminer-0.6.1.zip		https://github.com/Beeppool/miner/releases
+	- ald.php 			https://github.com/b374k/b374k
+	- bitexbet
+	- passwd.cdb and other inocent files	https://xneelo.co.za/help-centre/website/important-files-folders/	
+	- remove bulk files 	https://unix.stackexchange.com/questions/310754/how-to-delete-all-files-in-a-current-directory-starting-with-a-dot
+	- Deploy to shared host 
+	- Follow https://medium.com/@dorukgezici/how-to-setup-python-flask-app-on-shared-hosting-without-root-access-e40f95ccc819
+	- 
+	- 
+  
 
 # Usage
 
@@ -145,9 +158,9 @@
 
 ### Run server
 - Orient to
-  - C:/Users/ivan\Documents/multimedia/b-python-course/first_project
+  - C:/Users/ivan/Documents/multimedia/b-python-course/first_project
 - Run
-  - activate myEnv
+  - conda activate myEnv
   - python manage.py runserver
 - Orient to
   - http://127.0.0.1:8000/
@@ -164,9 +177,7 @@
   - INSTALLED_APPS =
 - Add “‘first_app’”
 
-## Tools core function
-
-### Views
+## Tools core function (views)
 
 - Add
 	```
@@ -389,8 +400,8 @@
 - Run
   - python manage.py createsuperuser
   - Ivan
-  - ivan.copeland2015@gmail.com
-  - Readyforanything123
+  - fake.copeland@gmail.com
+  - Insecurepassword123
 - Run
   - python manage.py runserver
 - Orient to
@@ -1420,6 +1431,27 @@
 	- Your pythonanywhere site (using the link to your app)
 - Action 
 	- Check for errors 
+	
+### Allow host 
+
+- Orient to (if you get disalled host error) 
+	- first_project\first_project\settings.py on your PC
+	- The "ALLOWED_HOSTS = []" line
+- Action 
+	- Add "ivan006.pythonanywhere.com" and "127.0.0.1" to the array 
+	- Commit and push this file to the repo
+- Orient to 
+	- py-anywhere terminal
+	- Then to the "b-python-course" folder
+- Action
+	- run "git pull"
+- Orient to 
+	- Python anywheres web tab 
+- Action 
+	- Click "Reload ivan006.pythonanywhere.com"
+
+### Turn off debug mode
+
 - Orient to (if you get disalled host error) 
 	- first_project\first_project\settings.py on your PC
 	- The "ALLOWED_HOSTS = []" line
@@ -1429,6 +1461,59 @@
 - Orient to 
 	- py-anywhere terminal
 	- Then to the "b-python-course" folder
-- Run
-  - git pull
-  
+- Action
+	- run "git pull"
+- Orient to 
+	- Python anywheres web tab 
+- Action 
+	- Click "Reload ivan006.pythonanywhere.com"
+
+### Fix admin tools files 
+
+- Orient to 
+	- Python anywheres web tab 
+	- Static files section
+- Action 
+	- Add the first url value of "/static/admin"
+	- Add the first path value of "/home/ivan006/.virtualenvs/myproj/lib/python3.8/site-packages/django/contrib/admin/static/admin"
+	- Reload your webapp
+- Orient to 
+	- Python anywheres web tab 
+	- Static files section
+- Action 
+	- Add the second url value of "/static/"
+	- Add the second path value of "/home/ivan006/b-python-course/first_project/static"
+	- Reload your webapp
+- Orient to 
+	- Your pythonanywhere site 
+- Action 
+	- Add "/gobbledigook" to the end and it should say "The requested resource was not found on this server."
+
+## Tools core function (views) (continued)
+
+### Class based views 
+
+- Orient to 
+	- first_project
+	- first_app
+	- views.py
+	- A new line after the "from django.contrib.auth.decorators import login_required" line 
+- Action 
+	- Add "from django.views.generic import View" 
+- Orient to 
+	- New line after ""
+- Action 
+	- Add 
+		```
+		class classview(View):
+			def get(self, request):
+				return HttpResponse("Hello world.")
+		```
+- Action 
+	- Add a url called "classview" to the urls pointing to a view called like "views.classview.as_view()"
+- Action 
+	- 
+- Orient to
+  - Terminal (your working dir and env)
+- Action
+  - Run "python --version"
